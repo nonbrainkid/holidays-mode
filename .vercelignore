@@ -5,6 +5,7 @@
 dist
 work
 outputs
+backups
 node_modules
 tests
 tsconfig.tsbuildinfo

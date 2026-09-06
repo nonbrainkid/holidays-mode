@@ -32,6 +32,7 @@ import {
   Sun,
   Undo2,
   Waves,
+  Trophy,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -68,11 +69,14 @@ import {
 } from '@/lib/passport';
 import { TOKEN } from '@/lib/token-config';
 import world from '@/lib/world-map.json';
+import EndlessGame from './endless-game';
+import Leaderboard from './leaderboard';
+import { WalletProvider, WalletButton } from './wallet';
 
 const today = () => new Date().toISOString().slice(0, 10);
 const theme = (d: Destination) =>
   ({ '--destination': d.color, '--destination-ink': d.ink }) as CSSProperties;
-type Phase = 'home' | 'playing' | 'finished';
+type Phase = 'home' | 'playing' | 'finished' | 'endless';
 type Tool = {
   name: string;
   description: string;
@@ -190,7 +194,7 @@ function TokenCard({ openNotes }: { openNotes: () => void }) {
           <br />
           Onchain.
         </h2>
-        <p>The game comes first. Our next departure is on Robinhood Chain.</p>
+        <p>The game comes first. $MODE is live on Robinhood Chain.</p>
         <a
           className="text-link"
           href={TOKEN.socialUrl}
@@ -288,9 +292,17 @@ function TokenCard({ openNotes }: { openNotes: () => void }) {
 }
 
 export default function HolidayGame() {
+  return (
+    <WalletProvider>
+      <HolidayGameContent />
+    </WalletProvider>
+  );
+}
+function HolidayGameContent() {
   const [day, setDay] = useState(''),
     [selectedStop, setSelectedStop] = useState(0);
   const [phase, setPhase] = useState<Phase>('home');
+  const [leaveRequest, setLeaveRequest] = useState(0);
   const [placements, setPlacements] = useState<Placement[]>([]),
     placementsRef = useRef<Placement[]>([]);
   const [selected, setSelected] = useState(PIECES[0].id),
@@ -306,7 +318,7 @@ export default function HolidayGame() {
     ),
     [message, setMessage] = useState('');
   const [dialog, setDialog] = useState<
-      'rules' | 'passport' | 'postcard' | 'tokenomics' | null
+      'rules' | 'passport' | 'postcard' | 'tokenomics' | 'leaderboard' | null
     >(null),
     [postcard, setPostcard] = useState(0);
   const [shared, setShared] = useState(false),
@@ -463,6 +475,10 @@ export default function HolidayGame() {
     setPhase('playing');
   }
   function goHome() {
+    if (phase === 'endless') {
+      setLeaveRequest((v) => v + 1);
+      return;
+    }
     running.current = false;
     placementsRef.current = [];
     setPlacements([]);
@@ -690,6 +706,9 @@ export default function HolidayGame() {
             DESTINATIONS
           </a>
           <button onClick={() => setDialog('rules')}>HOW TO PLAY</button>
+          <button className="top-nav" onClick={() => setDialog('leaderboard')}>
+            <Trophy size={15} /> TOP 20
+          </button>
           <a
             href={TOKEN.socialUrl}
             target="_blank"
@@ -700,6 +719,7 @@ export default function HolidayGame() {
             𝕏 <ExternalLink size={12} />
           </a>
         </nav>
+        <WalletButton />
         <Button
           className="passport-button"
           variant="outline"
@@ -735,7 +755,7 @@ export default function HolidayGame() {
                   <Button
                     className="primary-button"
                     disabled={!ready}
-                    onClick={start}
+                    onClick={() => setPhase('endless')}
                   >
                     PLAY <ArrowRight size={21} />
                   </Button>
@@ -747,6 +767,13 @@ export default function HolidayGame() {
                     VIEW PASSPORT <BookOpen size={17} />
                   </Button>
                 </div>
+                <button
+                  className="quest-link"
+                  onClick={start}
+                  disabled={!ready}
+                >
+                  OR PLAY PASSPORT QUEST <ArrowRight size={15} />
+                </button>
                 <div className="hero-footnote">
                   <span className="status-dot" /> FREE TO PLAY <span>·</span> NO
                   WALLET NEEDED
@@ -760,9 +787,9 @@ export default function HolidayGame() {
                 </div>
                 <button
                   className="hero-puzzle"
-                  onClick={start}
+                  onClick={() => setPhase('endless')}
                   disabled={!ready}
-                  aria-label={`Play the ${stop.name} puzzle`}
+                  aria-label="Play the endless puzzle"
                 >
                   <TileMotif />
                   <span className="puzzle-callout">
@@ -1037,6 +1064,13 @@ export default function HolidayGame() {
               </Button>
             </section>
           </>
+        ) : phase === 'endless' ? (
+          <EndlessGame
+            destinationIndex={selectedStop}
+            leaveRequest={leaveRequest}
+            onExit={() => setPhase('home')}
+            onTop={() => setDialog('leaderboard')}
+          />
         ) : (
           <section className="game-screen" style={theme(stop)}>
             <div className="game-navigation">
@@ -1414,26 +1448,42 @@ export default function HolidayGame() {
         >
           <DialogHeader>
             <DialogTitle>
-              {dialog === 'rules'
-                ? 'One last puzzle. Then you’re off.'
-                : dialog === 'passport'
-                  ? 'Your little book of good times.'
-                  : dialog === 'postcard'
-                    ? `Greetings from ${DESTINATIONS[postcard].name}.`
-                    : 'The next departure: onchain.'}
+              {dialog === 'leaderboard'
+                ? 'The worldwide departure board.'
+                : dialog === 'rules'
+                  ? 'One last puzzle. Then you’re off.'
+                  : dialog === 'passport'
+                    ? 'Your little book of good times.'
+                    : dialog === 'postcard'
+                      ? `Greetings from ${DESTINATIONS[postcard].name}.`
+                      : 'The next departure: onchain.'}
             </DialogTitle>
             <DialogDescription>
-              {dialog === 'rules'
-                ? 'Eight essentials. One suitcase. A little holiday state of mind.'
-                : dialog === 'passport'
-                  ? storageNote
-                  : dialog === 'postcard'
-                    ? 'A little memory from a puzzle well packed.'
-                    : 'Holidays Mode · Robinhood Chain · pons'}
+              {dialog === 'leaderboard'
+                ? 'The best endless escapes. One record per verified wallet.'
+                : dialog === 'rules'
+                  ? 'Eight essentials. One suitcase. A little holiday state of mind.'
+                  : dialog === 'passport'
+                    ? storageNote
+                    : dialog === 'postcard'
+                      ? 'A little memory from a puzzle well packed.'
+                      : 'Holidays Mode · Robinhood Chain · pons'}
             </DialogDescription>
           </DialogHeader>
-          {dialog === 'rules' ? (
+          {dialog === 'leaderboard' ? (
+            <Leaderboard />
+          ) : dialog === 'rules' ? (
             <div className="rules-content">
+              <h3>Endless escape</h3>
+              <p>
+                Fill rows or columns on the 8 × 8 grid to clear space. Place all
+                three pieces for a fresh tray. Rotate freely; the run ends when
+                no piece fits. Score 10 per square, 100 per line and an extra 50
+                for each consecutive clearing move after the first. Use Finish
+                Run to save your score to the global TOP with a verified
+                Robinhood Chain wallet.
+              </p>
+              <h3>Passport Quest</h3>
               <ol>
                 <li>
                   <b>Pick your destination.</b> Start in Bali. Complete its
@@ -1550,17 +1600,17 @@ export default function HolidayGame() {
               <ModeBadge />
               <h3>More holidays. One step at a time.</h3>
               <p>
-                The token is planned to launch on pons, on Robinhood Chain
-                (chain ID 4663). It has not been deployed yet.
+                Holidays Mode ($MODE) is live on Robinhood Chain (chain ID
+                4663). Always check the full contract address before trading.
               </p>
               <dl>
                 <div>
                   <dt>Token symbol & contract</dt>
-                  <dd>Will be published after deployment.</dd>
+                  <dd><a href={TOKEN.explorerBase + TOKEN.address} target="_blank" rel="noopener noreferrer">$MODE · View verified contract <ExternalLink size={13}/></a></dd>
                 </div>
                 <div>
                   <dt>Supply, distribution & fees</dt>
-                  <dd>Final launch parameters have not been announced.</dd>
+                  <dd>Refer to the token’s launch details on pons and its onchain contract.</dd>
                 </div>
                 <div>
                   <dt>Game access</dt>
