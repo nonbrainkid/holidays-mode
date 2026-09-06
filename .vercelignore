@@ -1,0 +1,15 @@
+.openai
+.wrangler
+.vinext
+.next
+dist
+work
+outputs
+node_modules
+tests
+tsconfig.tsbuildinfo
+*.log
+.env*
+.agents
+.git
+skills-lock.json

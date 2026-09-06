@@ -1,0 +1,3413 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@custom-variant dark (&:is(.dark *));
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--foreground);
+  --color-destructive: #a13e2a;
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--ring);
+  --font-sans: 'Nunito Sans Variable', sans-serif;
+  --font-heading: 'Archivo Variable', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+@font-face {
+  font-family: 'Archivo Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nunito Sans Variable';
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url('/fonts/nunito-sans-latin-wght-normal.woff2') format('woff2');
+}
+:root,
+.dark {
+  --cream: #fff7e8;
+  --navy: #17223b;
+  --orange: #ff805f;
+  --sky: #68c7e8;
+  --green: #8ecf93;
+  --background: var(--cream);
+  --foreground: var(--navy);
+  --card: #fffaf1;
+  --popover: var(--cream);
+  --primary: var(--orange);
+  --secondary: #f0eadc;
+  --muted: #eee8dc;
+  --muted-foreground: #626779;
+  --accent: #f4e5d5;
+  --border: #17223b26;
+  --ring: #17223b;
+  --radius: 18px;
+  --font-display: 'Archivo Variable', Arial, sans-serif;
+  --font-ui: 'Nunito Sans Variable', Arial, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  color-scheme: light;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}
+body {
+  margin: 0;
+  color: var(--navy);
+  background: var(--cream);
+  font: 1rem/1.5 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+button:disabled {
+  cursor: default;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 5px;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+h2 {
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+}
+svg {
+  flex-shrink: 0;
+}
+em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+}
+[hidden] {
+  display: none !important;
+}
+[data-slot='button'] {
+  min-height: 44px;
+  border-radius: 9px;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 850;
+  letter-spacing: 0.025em;
+  gap: 10px;
+  padding-inline: 20px;
+  box-shadow: none;
+  transition:
+    background 0.18s,
+    transform 0.18s;
+}
+[data-slot='button']:active {
+  transform: translateY(1px);
+}
+[data-slot='button'][data-variant='outline'] {
+  background: transparent;
+  border: 1px solid var(--border);
+}
+[data-slot='button']:disabled {
+  opacity: 0.5;
+}
+.eyebrow {
+  font: 400 0.75rem/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.text-link {
+  border: 0;
+  padding: 0;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-align: left;
+}
+.text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #2b7540;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.primary-button[data-slot='button'] {
+  background: var(--orange);
+  color: var(--navy);
+  border: 1px solid #17223b0c;
+  min-height: 57px;
+  padding-inline: 27px;
+  font-size: 1rem;
+  justify-content: space-between;
+  gap: 32px;
+}
+.primary-button[data-slot='button']:hover {
+  background: #f66f4c;
+}
+.secondary-button[data-slot='button'] {
+  min-height: 54px;
+  font-size: 0.875rem;
+  border-radius: 9px;
+}
+.compact-button[data-slot='button'] {
+  min-height: 46px;
+  font-size: 0.875rem;
+  padding-inline: 19px;
+}
+.mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--green);
+  border-radius: 30px;
+  padding: 8px 12px 8px 15px;
+  font: 850 0.875rem/1 var(--font-ui);
+  white-space: nowrap;
+}
+.mode-badge > span {
+  width: 21px;
+  height: 21px;
+  background: var(--cream);
+  border-radius: 50%;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.brand > img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.brand > span {
+  font: 900 1.05rem/0.96 var(--font-display);
+  letter-spacing: -0.04em;
+}
+.site-header {
+  max-width: 1320px;
+  margin: auto;
+  min-height: 106px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 46px;
+  gap: 26px;
+}
+.site-header > a {
+  display: flex;
+}
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: auto;
+}
+.site-header nav a,
+.site-header nav button {
+  font: 0.75rem var(--font-mono);
+  background: none;
+  border: 0;
+  padding: 9px 0;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.site-header nav .social-link {
+  font-size: 1.125rem;
+}
+.passport-button[data-slot='button'] {
+  padding-inline: 17px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  background: transparent;
+}
+.passport-button > span {
+  font: 0.75rem var(--font-mono);
+  background: var(--secondary);
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+.holidays-app main {
+  max-width: 1320px;
+  margin: auto;
+}
+.hero {
+  padding: 72px 60px 86px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 60px;
+  align-items: center;
+}
+.hero-topline {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 23px;
+}
+.hero-topline .eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.hero-topline .mode-badge {
+  font-size: 0.75rem;
+  padding: 6px 9px 6px 12px;
+  gap: 8px;
+}
+.hero-topline .mode-badge > span {
+  width: 16px;
+  height: 16px;
+}
+.hero h1 {
+  font-size: clamp(4rem, 8.45vw, 7.35rem);
+  letter-spacing: -0.068em;
+  font-weight: 950;
+  line-height: 0.9;
+  position: relative;
+  margin-left: -5px;
+  white-space: nowrap;
+}
+.headline-sun {
+  display: inline-block;
+  margin-left: 16px;
+  vertical-align: middle;
+  color: var(--orange);
+}
+.headline-sun svg {
+  width: 0.55em;
+  height: 0.55em;
+}
+.hero-tagline {
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  margin-top: 27px;
+}
+.hero-description {
+  font-size: 1.075rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin-top: 10px;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 27px;
+}
+.hero-actions .primary-button {
+  min-width: 171px;
+}
+.hero-footnote {
+  font: 0.75rem var(--font-mono);
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  margin-top: 22px;
+  color: #525766;
+}
+.hero-visual {
+  position: relative;
+  padding: 12px 10px 0;
+  min-width: 0;
+}
+.visual-eyebrow {
+  font: 0.75rem/1.6 var(--font-mono);
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 4px 27px;
+}
+.hero-puzzle {
+  display: block;
+  width: 88%;
+  max-width: 385px;
+  margin: auto;
+  background: none;
+  border: 0;
+  padding: 0;
+  transform: rotate(5deg);
+  transition: transform 0.25s;
+}
+.hero-puzzle:hover {
+  transform: rotate(1deg) translateY(-4px);
+}
+.tile-motif {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  aspect-ratio: 1;
+}
+.tile-motif > span {
+  border-radius: 17%;
+  background: var(--navy);
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  box-shadow: inset 0 -3px 0 #0000000b;
+}
+.tile-motif .motif-2,
+.tile-motif .motif-3,
+.tile-motif .motif-6,
+.tile-motif .motif-7,
+.tile-motif .motif-11 {
+  background: var(--orange);
+}
+.tile-motif .motif-8,
+.tile-motif .motif-9,
+.tile-motif .motif-10 {
+  background: var(--sky);
+}
+.tile-motif > span > svg {
+  width: 65%;
+  height: 65%;
+  stroke-width: 1.7;
+}
+.tile-motif .motif-3 {
+  transform: rotate(12deg) translate(7px, -8px);
+}
+.tile-motif .motif-3 > svg {
+  color: var(--cream);
+}
+.tile-motif .motif-14 {
+  grid-column: 3 / span 2;
+  aspect-ratio: 2.08;
+  background: var(--green);
+  border-radius: 12px;
+}
+.tile-motif .motif-15 {
+  display: none;
+}
+.motif-on {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font: 950 2.2rem var(--font-display);
+}
+.motif-on i {
+  width: 39px;
+  height: 39px;
+  background: var(--cream);
+  border-radius: 50%;
+}
+.puzzle-callout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font: 0.75rem var(--font-mono);
+  margin-top: 17px;
+}
+.good-times-stamp {
+  position: absolute;
+  left: -24px;
+  bottom: 91px;
+  border: 2px solid #d76240;
+  border-radius: 50%;
+  width: 103px;
+  height: 103px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #d76240;
+  transform: rotate(-16deg);
+  background: var(--cream);
+  outline: 1px dashed #d7624099;
+  outline-offset: -7px;
+  font: 700 0.75rem/1.5 var(--font-mono);
+  gap: 2px;
+}
+.good-times-stamp small {
+  font-size: 0.75rem;
+}
+.hero-ticket {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 33px 2px 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 17px;
+  transform: rotate(-3deg);
+  box-shadow: 0 7px 0 #17223b05;
+}
+.ticket-icon {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+}
+.hero-ticket > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hero-ticket small {
+  font: 0.625rem var(--font-mono);
+  letter-spacing: 0.05em;
+}
+.hero-ticket b {
+  font: 850 1.45rem/1 var(--font-display);
+}
+.ticket-code {
+  font: 0.875rem var(--font-mono);
+  margin-left: auto;
+}
+.barcode {
+  display: block;
+  height: 27px;
+  width: 35px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--navy) 0 1px,
+    transparent 1px 3px,
+    var(--navy) 3px 5px,
+    transparent 5px 6px,
+    var(--navy) 6px 7px,
+    transparent 7px 9px
+  );
+  opacity: 0.8;
+}
+.travel-marquee {
+  background: var(--navy);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 39px;
+  padding: 20px 32px;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  font: 850 1.25rem var(--font-display);
+  letter-spacing: 0.035em;
+}
+.travel-marquee > svg {
+  width: 22px;
+  color: var(--orange);
+}
+.destination-section {
+  padding: 80px 60px 69px;
+}
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 31px;
+}
+.section-heading h2 {
+  margin-top: 12px;
+}
+.section-heading > p {
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+}
+.boarding-card {
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  padding: 0;
+  text-align: left;
+  overflow: hidden;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  min-width: 0;
+  position: relative;
+}
+.boarding-card:hover {
+  transform: translateY(-5px);
+}
+.boarding-selected {
+  outline: 2px solid var(--navy);
+  outline-offset: 5px;
+  box-shadow: 0 8px 22px #17223b0d;
+}
+.boarding-title {
+  display: flex;
+  align-items: center;
+  padding: 13px 14px;
+  gap: 10px;
+  background: var(--destination);
+}
+.boarding-title h3 {
+  font-size: 1.6rem;
+  letter-spacing: -0.04em;
+  font-weight: 950;
+}
+.boarding-title > span {
+  font: 0.75rem var(--font-mono);
+  margin-left: auto;
+}
+.boarding-picture {
+  position: relative;
+  margin: 12px 12px 0;
+  aspect-ratio: 1.48;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.destination-art {
+  width: 100%;
+  height: 100%;
+  background-image: url('/brand/postcard-atlas.png');
+  background-size: 200% 200%;
+  background-repeat: no-repeat;
+  image-rendering: auto;
+}
+.boarding-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 9px;
+  left: 8px;
+  right: auto;
+  max-width: calc(100% - 16px);
+  font: 700 0.625rem var(--font-mono);
+  letter-spacing: 0.015em;
+  padding: 5px 7px;
+  background: var(--cream);
+  border-radius: 3px;
+  color: var(--navy);
+}
+.status-stamped {
+  background: var(--green);
+}
+.boarding-info {
+  padding: 12px 14px 14px;
+}
+.boarding-info > p {
+  font: 0.625rem/1.65 var(--font-mono);
+  letter-spacing: 0.015em;
+  min-height: 32px;
+}
+.boarding-info > div {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-top: 13px;
+}
+.boarding-info > div > span {
+  font: 0.625rem var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  white-space: nowrap;
+}
+.boarding-info b {
+  font: 800 1.3rem var(--font-ui);
+  letter-spacing: -0.03em;
+}
+.boarding-info > div .boarding-go {
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.boarding-tear {
+  border-top: 1px dashed #17223b47;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 13px;
+  background: #f8eedc;
+}
+.boarding-tear:before,
+.boarding-tear:after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--cream);
+}
+.boarding-tear:before {
+  left: -7px;
+}
+.boarding-tear:after {
+  right: -7px;
+}
+.boarding-tear .barcode {
+  width: 31px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.boarding-tear > span:last-child {
+  font: 0.5625rem var(--font-mono);
+  letter-spacing: 0.01em;
+}
+.boarding-locked .boarding-picture {
+  filter: saturate(0.75);
+}
+.boarding-locked .boarding-go {
+  opacity: 0.65;
+}
+.selection-message {
+  min-height: 24px;
+  font-size: 0.875rem;
+  margin: 24px 0 15px;
+  color: var(--muted-foreground);
+}
+.destination-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 17px;
+  border-top: 1px solid var(--border);
+}
+.destination-bottom > span {
+  font: 0.75rem var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.passport-teaser {
+  border-block: 1px solid var(--border);
+  padding: 77px 60px 83px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.15fr;
+  gap: 55px;
+  align-items: center;
+  background: #f2eddf;
+}
+.passport-teaser h2 {
+  margin-top: 19px;
+  font-size: clamp(2.1rem, 3.4vw, 3.2rem);
+  line-height: 1.09;
+}
+.passport-teaser-copy > p:not(.eyebrow) {
+  margin: 22px 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.passport-teaser-copy .secondary-button {
+  border-color: #17223b65;
+  background: transparent;
+}
+.storage-note {
+  display: block;
+  margin-top: 14px;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.passport-display {
+  display: grid;
+  grid-template-columns: 0.72fr 1fr;
+  transform: rotate(-5deg);
+  filter: drop-shadow(0 13px 15px #17223b16);
+  min-width: 0;
+  position: relative;
+}
+.passport-cover {
+  background: var(--navy);
+  color: var(--cream);
+  border-radius: 13px 3px 3px 13px;
+  padding: 34px 15px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+  border: 5px double #fff7e83c;
+}
+.passport-cover > span {
+  font: 850 1.8rem/0.96 var(--font-display);
+  letter-spacing: -0.045em;
+}
+.passport-cover > small {
+  font: 0.5625rem var(--font-mono);
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  max-width: 120px;
+}
+.passport-cover > b {
+  font: 0.875rem var(--font-mono);
+  letter-spacing: 0.18em;
+}
+.passport-cover > svg {
+  color: #edcc90;
+}
+.passport-page {
+  background: var(--cream);
+  border-radius: 3px 13px 13px 3px;
+  padding: 17px 16px 15px;
+  box-shadow: inset 8px 0 15px #17223b13;
+  min-width: 0;
+}
+.passport-page-header {
+  font: 0.5625rem var(--font-mono);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.passport-preview-stamps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px 8px;
+  margin: 34px 0;
+}
+.passport-stamp {
+  border: 2px dashed #a7a89f;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #888c84;
+  transform: rotate(-10deg);
+  padding: 11px;
+  opacity: 0.43;
+  position: relative;
+  max-width: 190px;
+  width: 100%;
+  margin: auto;
+}
+.passport-stamp:after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.passport-stamp > span {
+  font: 700 0.5rem var(--font-mono);
+  text-align: center;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+}
+.passport-stamp > span:last-child {
+  max-width: 100px;
+}
+.passport-stamp strong {
+  font: 850 1.55rem/1 var(--font-display);
+  letter-spacing: 0.04em;
+}
+.passport-stamp > svg {
+  width: 23px;
+  height: 23px;
+}
+.passport-stamp.is-earned {
+  opacity: 1;
+  border-color: currentColor;
+  border-style: solid;
+  color: var(--destination-ink);
+  background: color-mix(in srgb, var(--destination) 9%, transparent);
+}
+.passport-preview-stamps > :nth-child(2n) {
+  transform: rotate(12deg);
+}
+.passport-page-number {
+  font: 0.5rem/1.7 var(--font-mono);
+  color: var(--muted-foreground);
+  display: block;
+  border-top: 1px solid var(--border);
+  padding-top: 9px;
+}
+.route-section {
+  padding: 70px 60px;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 45px;
+  align-items: center;
+}
+.route-section h2 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  margin: 17px 0;
+}
+.route-section p:not(.eyebrow) {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.route-map {
+  aspect-ratio: 960/500;
+  position: relative;
+  min-width: 0;
+}
+.route-map > svg {
+  width: 100%;
+  height: 100%;
+  color: #dce0cf;
+}
+.route-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  padding: 0;
+  background: none;
+}
+.route-pin > span {
+  width: 34px;
+  height: 34px;
+  background: var(--destination);
+  border: 1px solid #17223b22;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 4px var(--cream);
+}
+.route-pin > b {
+  font: 0.625rem var(--font-mono);
+  background: var(--cream);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+.token-section {
+  padding: 70px 60px;
+  display: grid;
+  grid-template-columns: 0.82fr 1.1fr;
+  gap: 80px;
+  border-block: 1px solid var(--border);
+  align-items: center;
+}
+.token-section h2 {
+  margin: 18px 0 20px;
+}
+.token-section > div:first-child > p:not(.eyebrow) {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+  max-width: 310px;
+}
+.token-section > div:first-child > .text-link {
+  margin-top: 22px;
+}
+.token-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 25px 24px;
+  min-width: 0;
+}
+.token-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--border);
+}
+.token-card .brand > img {
+  width: 64px;
+  height: 64px;
+}
+.token-card .brand > span {
+  font-size: 0.875rem;
+}
+.launch-badge {
+  font: 700 0.625rem var(--font-mono);
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  white-space: nowrap;
+}
+.token-card dl {
+  margin: 17px 0;
+}
+.token-card dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 9px 0;
+}
+.token-card dt {
+  font: 0.625rem var(--font-mono);
+  padding-top: 4px;
+}
+.token-card dd {
+  font-size: 0.875rem;
+  font-weight: 750;
+  margin: 0;
+  text-align: right;
+}
+.token-card dd a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.network-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2b7540;
+  margin-left: 6px;
+}
+.contract-field {
+  background: #f0eadc;
+  border-radius: 8px;
+  padding: 16px;
+}
+.contract-field > .eyebrow {
+  font-size: 0.625rem;
+}
+.contract-field > p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-top: 8px;
+  color: #535967;
+}
+.contract-value {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+.contract-value code {
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.token-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+}
+.token-links > .text-link {
+  font-size: 0.8125rem;
+}
+.signoff {
+  text-align: center;
+  padding: 70px 30px 77px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.signoff h2 {
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  margin: 17px 0 22px;
+  line-height: 1.02;
+}
+.signoff > .mode-badge {
+  transform: rotate(-5deg);
+  margin-bottom: 26px;
+}
+.signoff .primary-button {
+  min-width: 230px;
+  font-size: 0.875rem;
+}
+.site-footer {
+  max-width: 1320px;
+  margin: auto;
+  border-top: 1px solid var(--border);
+  padding: 24px 46px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.site-footer > .brand > img {
+  width: 61px;
+  height: 61px;
+}
+.site-footer > .brand > span {
+  font-size: 0.875rem;
+}
+.site-footer > span:not(.brand) {
+  font: 0.75rem var(--font-mono);
+  letter-spacing: 0.07em;
+}
+.site-footer > div {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.site-footer a,
+.site-footer button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 0.75rem var(--font-mono);
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.site-footer > p {
+  flex-basis: 100%;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  text-align: center;
+}
+.game-screen {
+  padding: 22px 60px 65px;
+  min-height: 70vh;
+}
+.game-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 33px;
+}
+.game-navigation > [data-slot='button'] {
+  padding-inline: 0;
+  font-size: 0.75rem;
+}
+.game-navigation .eyebrow {
+  font-size: 0.75rem;
+}
+.game-navigation > .mode-badge {
+  font-size: 0.75rem;
+  padding: 6px 9px 6px 13px;
+}
+.game-navigation > .mode-badge > span {
+  width: 17px;
+  height: 17px;
+}
+.game-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 29px;
+}
+.game-heading h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-top: 13px;
+}
+.game-heading > .text-link {
+  font: 0.75rem var(--font-mono);
+  white-space: nowrap;
+}
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr);
+  gap: 57px;
+  align-items: start;
+  max-width: 1030px;
+  margin: auto;
+}
+.suitcase-panel {
+  min-width: 0;
+}
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 19px 3px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 23px;
+}
+.scoreboard > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.scoreboard > div > span {
+  font: 0.625rem var(--font-mono);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  white-space: nowrap;
+}
+.scoreboard b {
+  font: 900 1.8rem/1.2 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+.scoreboard > div:last-child {
+  text-align: right;
+}
+.suitcase {
+  background: var(--navy);
+  border-radius: 21px;
+  padding: 15px;
+  color: var(--cream);
+  box-shadow: 0 7px 0 #17223b18;
+}
+.suitcase-label,
+.suitcase-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 5px 13px;
+  font: 0.625rem var(--font-mono);
+}
+.suitcase-label b {
+  font-size: 0.875rem;
+}
+.suitcase-label > span {
+  margin-left: auto;
+}
+.suitcase-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 5px;
+}
+.bag-cell {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 9px;
+  background: #fff7e81c;
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  min-width: 0;
+  touch-action: manipulation;
+  position: relative;
+  transition:
+    background 0.13s,
+    transform 0.13s;
+}
+.bag-cell:hover:not(:disabled) {
+  transform: scale(0.96);
+}
+.bag-cell:focus-visible {
+  outline-color: var(--cream);
+  outline-offset: 2px;
+  z-index: 1;
+}
+.cell-dot {
+  width: 4px;
+  height: 4px;
+  background: #fff7e847;
+  border-radius: 50%;
+}
+.cell-reserved {
+  background: #fff7e80a;
+  color: #fff7e883;
+}
+.cell-packed {
+  box-shadow: inset 0 -3px 0 #17223b17;
+}
+.placed-tile-label {
+  font: 700 0.625rem var(--font-mono);
+  color: var(--navy);
+}
+.bag-cell.cell-preview {
+  background: #8ecf93 !important;
+  outline: 2px solid #b5ecb9;
+  outline-offset: -3px;
+}
+.bag-cell.cell-invalid {
+  background: #ad5548 !important;
+  outline: 1px solid #ff805f;
+  outline-offset: -3px;
+}
+.suitcase-bottom {
+  justify-content: space-between;
+  padding: 15px 5px 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+}
+.progress-line {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font: 0.625rem var(--font-mono);
+  margin: 25px 1px 10px;
+}
+.progress-line > b {
+  margin-left: auto;
+  font-size: 0.75rem;
+}
+[data-slot='progress'] {
+  background: #e1ddcf;
+  height: 5px;
+}
+[data-slot='progress-indicator'] {
+  background: var(--destination, var(--orange));
+}
+.game-message {
+  min-height: 44px;
+  margin-top: 14px;
+  text-align: center;
+  color: #626779;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.packing-panel {
+  padding-top: 18px;
+  min-width: 0;
+}
+.packing-panel h2 {
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+  margin-top: 10px;
+}
+.packing-panel > p {
+  font-size: 1rem;
+  color: #626779;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.pieces-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+.piece-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px 8px 11px;
+  min-height: 108px;
+  position: relative;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.piece-button > span:not(.piece-preview) {
+  font-size: 0.875rem;
+  font-weight: 750;
+}
+.piece-button > svg {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+.piece-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 15px);
+  grid-template-rows: repeat(3, 15px);
+  gap: 2px;
+}
+.piece-preview > span {
+  border-radius: 3px;
+}
+.piece-selected {
+  outline: 2px solid var(--navy);
+  outline-offset: 1px;
+  background: #fff1dc;
+}
+.piece-packed {
+  opacity: 0.4;
+}
+.piece-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.piece-actions > [data-slot='button'] {
+  flex: 1;
+  min-width: 0;
+  padding: 0 12px;
+  font-size: 0.75rem;
+  background: transparent;
+}
+.piece-actions kbd {
+  font: 400 0.625rem var(--font-mono);
+  padding: 1px 4px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-left: auto;
+}
+.game-tip {
+  margin-top: 23px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.game-tip > svg {
+  color: #b3492d;
+}
+.game-tip p {
+  font-size: 0.875rem;
+  font-weight: 750;
+  line-height: 1.6;
+}
+.game-tip p span {
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+.keyboard-note {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-top: 15px;
+}
+.completion-heading {
+  text-align: center;
+  padding: 0 0 27px;
+}
+.completion-heading > .eyebrow {
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.completion-heading h1 {
+  font-size: clamp(2.5rem, 6.4vw, 5.2rem);
+  letter-spacing: -0.055em;
+}
+.completion-heading > p {
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  margin-top: 15px;
+}
+.completion-heading > .eyebrow > svg {
+  animation: arrive 0.7s ease-out both;
+}
+.arrival-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 25px 23px;
+  text-align: center;
+}
+.arrival-card > .eyebrow {
+  justify-content: center;
+  font-size: 0.625rem;
+}
+.arrival-card > .passport-stamp {
+  width: 143px;
+  margin: 22px auto;
+  animation: stamp-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.arrival-card > .passport-stamp > strong {
+  font-size: 2rem;
+}
+.arrival-card h2 {
+  font-size: 3.2rem;
+  letter-spacing: -0.06em;
+}
+.arrival-card h2 > small {
+  display: block;
+  font: 0.75rem var(--font-mono);
+  letter-spacing: 0.07em;
+  margin-top: 7px;
+}
+.arrival-card > p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-top: 16px;
+  color: var(--muted-foreground);
+}
+.arrival-details {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font: 0.625rem var(--font-mono);
+  margin: 22px 0;
+}
+.arrival-details > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.arrival-card .primary-button {
+  width: 100%;
+  font-size: 0.75rem;
+  min-height: 48px;
+  padding-inline: 16px;
+  gap: 8px;
+}
+.arrival-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+}
+.arrival-actions > [data-slot='button'] {
+  font-size: 0.625rem;
+  padding-inline: 12px;
+  background: transparent;
+}
+.arrival-actions > [data-slot='button']:first-child {
+  flex: 1;
+}
+.arrival-actions + [data-slot='input'] {
+  margin-top: 12px;
+}
+.next-stop-link {
+  margin-top: 22px;
+  font-size: 0.75rem;
+}
+.holiday-dialog {
+  background: var(--cream);
+  padding: 34px !important;
+  border-radius: 20px !important;
+  max-height: 90dvh;
+  overflow-y: auto;
+  max-width: 640px !important;
+  gap: 22px !important;
+}
+.holiday-dialog [data-slot='dialog-title'] {
+  font: 850 1.8rem/1.12 var(--font-display);
+  letter-spacing: -0.045em;
+  max-width: 92%;
+}
+.holiday-dialog [data-slot='dialog-description'] {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+.rules-content {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.rules-content ol {
+  list-style: decimal;
+  padding-left: 21px;
+  margin: 0;
+}
+.rules-content li {
+  padding-left: 7px;
+  margin-bottom: 14px;
+}
+.rules-content p {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 18px;
+}
+.passport-dialog {
+  max-width: 780px !important;
+}
+.passport-summary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--navy);
+  color: var(--cream);
+  padding: 20px;
+  border-radius: 12px;
+}
+.passport-summary > span {
+  font: 800 1rem var(--font-display);
+  letter-spacing: -0.02em;
+}
+.passport-summary > span > b {
+  font: 400 0.625rem var(--font-mono);
+  letter-spacing: 0.04em;
+}
+.passport-summary > strong {
+  margin-left: auto;
+  font: 850 2rem var(--font-ui);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.passport-summary small {
+  font: 0.625rem var(--font-mono);
+  max-width: 50px;
+}
+.passport-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 26px;
+}
+.passport-collection-grid > button {
+  padding: 14px 7px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 13px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: transparent;
+  min-width: 0;
+}
+.passport-collection-grid > button:not(:disabled):hover {
+  background: var(--secondary);
+}
+.stamp-destination {
+  font: 850 1.05rem var(--font-display);
+  letter-spacing: -0.03em;
+}
+.passport-collection-grid > button > small {
+  font: 0.5rem/1.6 var(--font-mono);
+  text-align: center;
+}
+.postcard-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font: 700 0.5625rem var(--font-mono);
+}
+.passport-disclaimer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 24px;
+}
+.postcard-dialog {
+  max-width: 700px !important;
+}
+.collectible-postcard {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--card);
+}
+.postcard-image {
+  position: relative;
+  aspect-ratio: 1.7;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.postcard-image > .destination-art {
+  position: absolute;
+  inset: 0;
+  filter: brightness(0.75);
+}
+.postcard-image > span {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  font: 0.75rem var(--font-mono);
+  color: var(--cream);
+  letter-spacing: 0.07em;
+}
+.postcard-image > h2 {
+  position: absolute;
+  bottom: 21px;
+  left: 20px;
+  color: var(--cream);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  text-shadow: 0 2px 10px #17223b22;
+}
+.postcard-back {
+  display: grid;
+  grid-template-columns: 1fr 130px;
+  gap: 23px;
+  padding: 25px 14px;
+}
+.postcard-back > .passport-stamp {
+  width: 130px;
+}
+.postcard-back > div:first-child {
+  border-right: 1px solid var(--border);
+  padding-right: 18px;
+}
+.postcard-back .eyebrow {
+  font-size: 0.625rem;
+  line-height: 1.7;
+}
+.postcard-back p {
+  font:
+    italic 1.6rem/1.2 Georgia,
+    serif;
+  margin-top: 14px;
+}
+.postcard-back small {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-top: 14px;
+}
+.collectible-postcard > [data-slot='button'] {
+  width: 100%;
+  font-size: 0.75rem;
+}
+.launch-notes > h3 {
+  font-size: 1.8rem;
+  margin-top: 22px;
+  line-height: 1.12;
+}
+.launch-notes > p {
+  margin-top: 17px;
+  line-height: 1.7;
+}
+.launch-notes dl {
+  margin: 22px 0;
+}
+.launch-notes dl > div {
+  border-top: 1px solid var(--border);
+  padding: 13px 0;
+}
+.launch-notes dt {
+  font-weight: 800;
+  font-size: 0.9375rem;
+}
+.launch-notes dd {
+  margin: 6px 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+@keyframes stamp-in {
+  from {
+    transform: rotate(-18deg) scale(1.5);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-10deg) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes arrive {
+  from {
+    transform: translate(-80px, 20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+@media (min-width: 1450px) {
+  .hero h1 {
+    font-size: 7.4rem;
+  }
+}
+@media (max-width: 1120px) {
+  .site-header {
+    padding-inline: 28px;
+    gap: 18px;
+  }
+  .site-header nav {
+    gap: 19px;
+  }
+  .hero {
+    padding: 60px 35px 65px;
+    gap: 32px;
+  }
+  .hero-topline {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hero-topline .eyebrow {
+    font-size: 0.625rem;
+  }
+  .hero h1 {
+    font-size: 8.5vw;
+  }
+  .hero-actions {
+    gap: 4px;
+  }
+  .hero-actions .secondary-button {
+    padding-inline: 12px;
+  }
+  .hero-ticket {
+    margin-left: 17px;
+  }
+  .good-times-stamp {
+    width: 88px;
+    height: 88px;
+    left: -8px;
+    bottom: 88px;
+    font-size: 0.625rem;
+  }
+  .good-times-stamp small {
+    font-size: 0.625rem;
+  }
+  .destination-section,
+  .passport-teaser,
+  .route-section,
+  .token-section {
+    padding-inline: 35px;
+  }
+  .destination-grid {
+    gap: 13px;
+  }
+  .boarding-title {
+    padding-inline: 11px;
+    gap: 7px;
+  }
+  .boarding-title h3 {
+    font-size: 1.35rem;
+  }
+  .boarding-title > svg {
+    width: 17px;
+  }
+  .boarding-title > span {
+    font-size: 0.625rem;
+  }
+  .boarding-info {
+    padding-inline: 11px;
+  }
+  .boarding-info > div {
+    gap: 10px;
+  }
+  .boarding-info > div > span {
+    font-size: 0.5625rem;
+  }
+  .boarding-tear {
+    padding-inline: 10px;
+    gap: 6px;
+  }
+  .boarding-tear > span:last-child {
+    font-size: 0.5rem;
+  }
+  .boarding-tear .barcode {
+    width: 23px;
+  }
+  .passport-teaser {
+    gap: 30px;
+    grid-template-columns: 0.9fr 1.2fr;
+  }
+  .passport-cover {
+    padding-inline: 10px;
+    gap: 22px;
+  }
+  .passport-cover > span {
+    font-size: 1.4rem;
+  }
+  .passport-page {
+    padding-inline: 12px;
+  }
+  .passport-stamp > span {
+    font-size: 0.4375rem;
+  }
+  .passport-stamp > svg {
+    width: 21px;
+    height: 21px;
+  }
+  .passport-stamp strong {
+    font-size: 1.3rem;
+  }
+  .passport-preview-stamps {
+    gap: 18px 5px;
+  }
+  .passport-page-header {
+    font-size: 0.5rem;
+  }
+  .token-section {
+    gap: 40px;
+  }
+  .game-screen {
+    padding-inline: 35px;
+  }
+  .game-layout {
+    gap: 32px;
+  }
+  .site-footer {
+    padding-inline: 28px;
+  }
+  .site-footer > span:not(.brand) {
+    font-size: 0.625rem;
+  }
+  .site-footer a,
+  .site-footer button {
+    font-size: 0.625rem;
+  }
+}
+@media (max-width: 820px) {
+  .site-header {
+    padding: 9px 20px;
+    min-height: 90px;
+  }
+  .site-header nav {
+    display: none;
+  }
+  .hero {
+    padding: 45px 26px 56px;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .hero h1 {
+    font-size: 8.7vw;
+  }
+  .hero-tagline {
+    font-size: 1.1rem;
+  }
+  .hero-description {
+    font-size: 1rem;
+  }
+  .hero-topline {
+    margin-bottom: 20px;
+  }
+  .hero-topline .mode-badge {
+    font-size: 0.625rem;
+  }
+  .hero-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-actions .primary-button {
+    min-width: 155px;
+    min-height: 50px;
+    font-size: 0.875rem;
+  }
+  .hero-actions .secondary-button {
+    min-height: 40px;
+    font-size: 0.75rem;
+    padding-inline: 0;
+  }
+  .hero-footnote {
+    font-size: 0.5625rem;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .hero-visual {
+    padding-inline: 0;
+  }
+  .visual-eyebrow {
+    font-size: 0.5625rem;
+    gap: 6px;
+    margin-bottom: 25px;
+    justify-content: center;
+  }
+  .visual-eyebrow svg {
+    width: 13px;
+  }
+  .tile-motif {
+    gap: 5px;
+  }
+  .motif-on {
+    font-size: 1.8rem;
+    gap: 10px;
+  }
+  .motif-on i {
+    width: 29px;
+    height: 29px;
+  }
+  .puzzle-callout {
+    font-size: 0.5rem;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .puzzle-callout svg {
+    width: 15px;
+  }
+  .good-times-stamp {
+    left: -2px;
+    bottom: 79px;
+    width: 70px;
+    height: 70px;
+    font-size: 0.5rem;
+  }
+  .good-times-stamp > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .good-times-stamp small {
+    font-size: 0.5rem;
+  }
+  .hero-ticket {
+    padding: 10px;
+    margin: 26px 0 0 8px;
+    gap: 8px;
+  }
+  .hero-ticket small {
+    font-size: 0.5rem;
+  }
+  .hero-ticket b {
+    font-size: 1.1rem;
+  }
+  .ticket-code {
+    font-size: 0.75rem;
+  }
+  .ticket-icon {
+    width: 31px;
+    height: 31px;
+  }
+  .ticket-icon svg {
+    width: 17px;
+  }
+  .hero-ticket .barcode {
+    width: 24px;
+  }
+  .travel-marquee {
+    padding-block: 16px;
+    font-size: 1.1rem;
+    gap: 27px;
+    justify-content: start;
+  }
+  .destination-section {
+    padding: 55px 26px;
+  }
+  .section-heading {
+    align-items: start;
+    gap: 15px;
+  }
+  .section-heading > p {
+    font-size: 0.875rem;
+    max-width: 265px;
+  }
+  .destination-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 18px;
+  }
+  .boarding-title {
+    padding: 15px 17px;
+  }
+  .boarding-title h3 {
+    font-size: 1.7rem;
+  }
+  .boarding-title > svg {
+    width: 21px;
+  }
+  .boarding-title > span {
+    font-size: 0.75rem;
+  }
+  .boarding-picture {
+    aspect-ratio: 1.7;
+  }
+  .boarding-info {
+    padding: 13px 16px 15px;
+  }
+  .boarding-info > p {
+    font-size: 0.625rem;
+    min-height: auto;
+  }
+  .boarding-info > div > span {
+    font-size: 0.625rem;
+  }
+  .boarding-info > div {
+    margin-top: 16px;
+  }
+  .boarding-tear {
+    padding: 12px 16px;
+  }
+  .boarding-tear > span:last-child {
+    font-size: 0.625rem;
+  }
+  .boarding-tear .barcode {
+    width: 31px;
+  }
+  .passport-teaser {
+    padding: 56px 26px;
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .passport-teaser h2 {
+    font-size: 2.7rem;
+  }
+  .passport-display {
+    max-width: 570px;
+    width: 93%;
+    margin: 0 auto;
+  }
+  .passport-cover {
+    padding: 40px 15px;
+    gap: 27px;
+  }
+  .passport-cover > span {
+    font-size: 1.8rem;
+  }
+  .passport-cover > small {
+    font-size: 0.625rem;
+  }
+  .passport-stamp > span {
+    font-size: 0.5rem;
+  }
+  .passport-stamp strong {
+    font-size: 1.7rem;
+  }
+  .passport-stamp > svg {
+    width: 28px;
+    height: 28px;
+  }
+  .passport-page {
+    padding: 20px;
+  }
+  .passport-page-header {
+    font-size: 0.625rem;
+  }
+  .passport-page-number {
+    font-size: 0.5rem;
+  }
+  .passport-preview-stamps {
+    gap: 20px 12px;
+    margin: 28px 0;
+  }
+  .route-section {
+    padding: 55px 26px;
+    gap: 20px;
+  }
+  .route-section h2 {
+    font-size: 2rem;
+  }
+  .route-section > .route-map {
+    min-width: 0;
+  }
+  .route-section .eyebrow {
+    font-size: 0.625rem;
+  }
+  .route-section p:not(.eyebrow) {
+    font-size: 0.875rem;
+  }
+  .token-section {
+    padding: 55px 26px;
+    gap: 25px;
+    grid-template-columns: 0.75fr 1fr;
+  }
+  .token-section h2 {
+    font-size: 2.7rem;
+  }
+  .token-section > div:first-child > p:not(.eyebrow) {
+    font-size: 0.875rem;
+  }
+  .token-card {
+    padding: 10px 16px 20px;
+  }
+  .token-card .brand > img {
+    width: 48px;
+    height: 48px;
+  }
+  .token-card .brand > span {
+    font-size: 0.7rem;
+  }
+  .launch-badge {
+    font-size: 0.5rem;
+    padding: 4px 6px;
+  }
+  .token-card dt {
+    font-size: 0.5625rem;
+  }
+  .token-card dd {
+    font-size: 0.75rem;
+  }
+  .token-links > .text-link {
+    font-size: 0.75rem;
+  }
+  .game-screen {
+    padding: 20px 26px 50px;
+  }
+  .game-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .scoreboard > div > span {
+    font-size: 0.5rem;
+  }
+  .scoreboard b {
+    font-size: 1.4rem;
+  }
+  .suitcase {
+    padding: 10px;
+    border-radius: 15px;
+  }
+  .suitcase-grid {
+    gap: 4px;
+  }
+  .bag-cell {
+    border-radius: 6px;
+  }
+  .placed-tile-label {
+    font-size: 0.5rem;
+  }
+  .suitcase-label,
+  .suitcase-bottom {
+    font-size: 0.5rem;
+    gap: 5px;
+  }
+  .suitcase-label > span {
+    font-size: 0.4375rem;
+  }
+  .packing-panel h2 {
+    font-size: 1.6rem;
+  }
+  .packing-panel > p {
+    font-size: 0.875rem;
+  }
+  .piece-preview {
+    grid-template-columns: repeat(3, 12px);
+    grid-template-rows: repeat(3, 12px);
+  }
+  .piece-button {
+    min-height: 95px;
+    gap: 8px;
+    padding-top: 11px;
+  }
+  .piece-button > span:not(.piece-preview) {
+    font-size: 0.75rem;
+  }
+  .piece-actions > [data-slot='button'] {
+    font-size: 0.625rem;
+    gap: 7px;
+  }
+  .piece-actions kbd {
+    display: none;
+  }
+  .game-tip {
+    gap: 8px;
+  }
+  .game-tip p {
+    font-size: 0.75rem;
+  }
+  .game-message {
+    font-size: 0.75rem;
+  }
+  .arrival-card {
+    padding: 20px 15px;
+  }
+  .arrival-card .primary-button {
+    font-size: 0.625rem;
+  }
+  .arrival-actions > [data-slot='button'] {
+    padding-inline: 7px;
+    font-size: 0.5625rem;
+  }
+  .arrival-details {
+    gap: 10px;
+  }
+  .game-navigation > .eyebrow {
+    font-size: 0.625rem;
+  }
+  .site-footer {
+    padding-inline: 20px;
+    gap: 15px;
+  }
+  .site-footer > span:not(.brand) {
+    display: none;
+  }
+  .site-footer > div {
+    gap: 20px;
+  }
+  .passport-collection-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .passport-collection-grid .passport-stamp {
+    max-width: 150px;
+  }
+  .passport-collection-grid > button > small {
+    font-size: 0.625rem;
+  }
+  .postcard-link {
+    font-size: 0.625rem;
+  }
+}
+@media (max-width: 580px) {
+  .site-header {
+    min-height: 83px;
+    padding: 6px 16px;
+    gap: 8px;
+  }
+  .brand > img {
+    width: 60px;
+    height: 60px;
+  }
+  .brand > span {
+    font-size: 0.95rem;
+  }
+  .passport-button[data-slot='button'] {
+    font-size: 0.625rem;
+    padding-inline: 11px;
+    gap: 6px;
+    min-height: 41px;
+  }
+  .passport-button > span {
+    font-size: 0.5625rem;
+    padding: 2px 4px;
+  }
+  .passport-button > svg {
+    width: 14px;
+  }
+  .hero {
+    padding: 32px 22px 45px;
+    grid-template-columns: 1fr;
+    gap: 31px;
+  }
+  .hero-topline {
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .hero-topline .eyebrow {
+    font-size: 0.625rem;
+  }
+  .hero h1 {
+    font-size: 16.2vw;
+    max-width: 450px;
+    line-height: 0.91;
+    margin-left: -3px;
+  }
+  .hero-tagline {
+    font-size: 1.18rem;
+    margin-top: 20px;
+  }
+  .hero-description {
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-top: 7px;
+  }
+  .hero-description .desktop-break {
+    display: none;
+  }
+  .hero-actions {
+    flex-wrap: nowrap;
+    gap: 16px;
+    margin-top: 23px;
+  }
+  .hero-actions .primary-button {
+    min-width: 140px;
+  }
+  .hero-actions .secondary-button {
+    font-size: 0.75rem;
+    gap: 8px;
+  }
+  .hero-footnote {
+    font-size: 0.625rem;
+    gap: 9px;
+    margin-top: 18px;
+  }
+  .hero-visual {
+    width: 84%;
+    max-width: 350px;
+    margin: 0 auto;
+    padding-top: 4px;
+  }
+  .visual-eyebrow {
+    font-size: 0.5625rem;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .hero-puzzle {
+    width: 86%;
+    max-width: 270px;
+  }
+  .tile-motif {
+    gap: 5px;
+  }
+  .tile-motif .motif-14 {
+    border-radius: 9px;
+  }
+  .puzzle-callout {
+    font-size: 0.5625rem;
+  }
+  .good-times-stamp {
+    left: -18px;
+    bottom: 77px;
+    width: 78px;
+    height: 78px;
+    font-size: 0.5625rem;
+  }
+  .good-times-stamp small {
+    font-size: 0.5rem;
+  }
+  .hero-ticket {
+    margin-top: 27px;
+  }
+  .hero-ticket small {
+    font-size: 0.5rem;
+  }
+  .hero-ticket b {
+    font-size: 1.2rem;
+  }
+  .travel-marquee {
+    font-size: 0.95rem;
+    gap: 23px;
+    padding: 15px 23px;
+  }
+  .travel-marquee > svg {
+    width: 20px;
+  }
+  .destination-section {
+    padding: 45px 22px;
+  }
+  .section-heading {
+    display: block;
+    margin-bottom: 28px;
+  }
+  .section-heading h2 {
+    font-size: 2.8rem;
+  }
+  .section-heading > p {
+    max-width: none;
+    margin-top: 15px;
+    font-size: 0.9375rem;
+  }
+  .destination-grid {
+    gap: 20px 12px;
+  }
+  .boarding-title {
+    padding: 11px 10px;
+    gap: 5px;
+  }
+  .boarding-title h3 {
+    font-size: 1.25rem;
+  }
+  .boarding-title > svg {
+    width: 14px;
+  }
+  .boarding-title > span {
+    font-size: 0.5625rem;
+  }
+  .boarding-picture {
+    margin: 8px 8px 0;
+    aspect-ratio: 1.18;
+  }
+  .boarding-status {
+    font-size: 0.4375rem;
+    padding: 4px;
+    gap: 3px;
+    bottom: 6px;
+    left: 5px;
+    max-width: calc(100% - 10px);
+  }
+  .boarding-status svg {
+    width: 10px;
+  }
+  .boarding-status .status-dot {
+    width: 5px;
+    height: 5px;
+  }
+  .boarding-info {
+    padding: 10px 10px 12px;
+  }
+  .boarding-info > p {
+    font-size: 0.5rem;
+    min-height: 26px;
+    line-height: 1.6;
+  }
+  .boarding-info > div {
+    gap: 9px;
+    margin-top: 11px;
+    flex-wrap: wrap;
+  }
+  .boarding-info > div > span {
+    font-size: 0.5rem;
+  }
+  .boarding-info b {
+    font-size: 1.2rem;
+  }
+  .boarding-info > div .boarding-go {
+    width: 25px;
+    height: 25px;
+  }
+  .boarding-go svg {
+    width: 15px;
+  }
+  .boarding-tear {
+    padding: 10px;
+    gap: 7px;
+    min-height: 46px;
+  }
+  .boarding-tear > span:last-child {
+    font-size: 0.4375rem;
+  }
+  .boarding-tear .barcode {
+    width: 21px;
+    height: 21px;
+  }
+  .selection-message {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-top: 21px;
+  }
+  .destination-bottom > span {
+    font-size: 0.625rem;
+    gap: 6px;
+  }
+  .destination-bottom > .primary-button {
+    font-size: 0.75rem;
+    padding-inline: 13px;
+    gap: 13px;
+    white-space: nowrap;
+  }
+  .passport-teaser {
+    padding: 44px 22px 52px;
+    gap: 36px;
+  }
+  .passport-teaser-copy > .eyebrow {
+    font-size: 0.625rem;
+  }
+  .passport-teaser h2 {
+    font-size: 2.45rem;
+    line-height: 1.08;
+  }
+  .passport-teaser-copy > p:not(.eyebrow) {
+    margin: 19px 0;
+  }
+  .passport-display {
+    width: 100%;
+    grid-template-columns: 0.67fr 1fr;
+    transform: rotate(-3deg);
+  }
+  .passport-cover {
+    padding: 25px 8px;
+    gap: 19px;
+  }
+  .passport-cover > span {
+    font-size: 1.1rem;
+  }
+  .passport-cover > svg:first-child {
+    width: 34px;
+  }
+  .passport-cover > small {
+    font-size: 0.4375rem;
+  }
+  .passport-cover > b {
+    font-size: 0.625rem;
+  }
+  .passport-cover > svg:last-child {
+    width: 18px;
+  }
+  .passport-page {
+    padding: 13px 10px;
+  }
+  .passport-page-header {
+    font-size: 0.4375rem;
+  }
+  .passport-page-number {
+    font-size: 0.375rem;
+  }
+  .passport-preview-stamps {
+    margin: 19px 0;
+    gap: 13px 6px;
+  }
+  .passport-preview-stamps .passport-stamp {
+    padding: 7px;
+    gap: 3px;
+  }
+  .passport-preview-stamps .passport-stamp > span {
+    font-size: 0.3125rem;
+  }
+  .passport-preview-stamps .passport-stamp > strong {
+    font-size: 1.15rem;
+  }
+  .passport-preview-stamps .passport-stamp > svg {
+    width: 17px;
+    height: 17px;
+  }
+  .passport-preview-stamps .passport-stamp:after {
+    inset: 3px;
+  }
+  .route-section {
+    padding: 45px 22px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .route-section h2 {
+    font-size: 2.45rem;
+    margin-block: 15px;
+  }
+  .route-section > .route-map {
+    margin-top: 6px;
+  }
+  .route-section p:not(.eyebrow) {
+    font-size: 0.9375rem;
+  }
+  .route-pin > span {
+    width: 31px;
+    height: 31px;
+  }
+  .token-section {
+    padding: 44px 22px;
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .token-section > div:first-child > p:not(.eyebrow) {
+    font-size: 1rem;
+    max-width: 340px;
+  }
+  .token-section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 16px;
+  }
+  .token-card {
+    padding: 12px 20px 22px;
+  }
+  .token-card .brand > img {
+    width: 60px;
+    height: 60px;
+  }
+  .token-card .brand > span {
+    font-size: 0.875rem;
+  }
+  .launch-badge {
+    font-size: 0.625rem;
+  }
+  .token-card dt {
+    font-size: 0.625rem;
+  }
+  .token-card dd {
+    font-size: 0.875rem;
+  }
+  .token-card dl > div {
+    gap: 10px;
+  }
+  .token-links > .text-link {
+    font-size: 0.8125rem;
+  }
+  .signoff {
+    padding: 46px 22px 52px;
+  }
+  .signoff h2 {
+    font-size: 3.55rem;
+  }
+  .site-footer {
+    padding: 20px 16px;
+    gap: 15px;
+  }
+  .site-footer > .brand > img {
+    width: 51px;
+    height: 51px;
+  }
+  .site-footer > .brand > span {
+    font-size: 0.75rem;
+  }
+  .site-footer > div {
+    flex-direction: column;
+    align-items: end;
+    gap: 10px;
+  }
+  .site-footer a,
+  .site-footer button {
+    font-size: 0.5625rem;
+  }
+  .site-footer > p {
+    font-size: 0.6875rem;
+    line-height: 1.7;
+  }
+  .game-screen {
+    padding: 17px 18px 35px;
+  }
+  .game-navigation {
+    margin-bottom: 22px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .game-navigation > .eyebrow {
+    order: 3;
+    width: 100%;
+    font-size: 0.625rem;
+  }
+  .game-navigation > .mode-badge {
+    font-size: 0.625rem;
+  }
+  .game-navigation > [data-slot='button'] {
+    min-height: 35px;
+    font-size: 0.625rem;
+  }
+  .game-heading {
+    margin-bottom: 17px;
+    align-items: start;
+  }
+  .game-heading .eyebrow {
+    font-size: 0.5625rem;
+  }
+  .game-heading h1 {
+    font-size: 2.3rem;
+    margin-top: 10px;
+  }
+  .game-heading > .text-link {
+    font-size: 0.5625rem;
+    margin-top: 9px;
+    gap: 2px;
+  }
+  .game-layout {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    max-width: 420px;
+  }
+  .scoreboard {
+    padding-block: 15px;
+    margin-bottom: 18px;
+  }
+  .scoreboard > div > span {
+    font-size: 0.625rem;
+  }
+  .scoreboard b {
+    font-size: 1.7rem;
+  }
+  .suitcase {
+    padding: 12px;
+  }
+  .suitcase-label,
+  .suitcase-bottom {
+    font-size: 0.5625rem;
+  }
+  .suitcase-label > span {
+    font-size: 0.5625rem;
+  }
+  .suitcase-grid {
+    gap: 4px;
+  }
+  .placed-tile-label {
+    font-size: 0.5625rem;
+  }
+  .progress-line {
+    margin-top: 22px;
+    font-size: 0.625rem;
+  }
+  .game-message {
+    font-size: 0.8125rem;
+    min-height: 24px;
+    margin-bottom: 7px;
+  }
+  .packing-panel {
+    padding-top: 12px;
+  }
+  .packing-panel h2 {
+    font-size: 1.8rem;
+  }
+  .packing-panel > p {
+    font-size: 0.875rem;
+    margin-top: 8px;
+  }
+  .packing-panel > .eyebrow {
+    font-size: 0.625rem;
+  }
+  .pieces-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 19px;
+  }
+  .piece-button {
+    min-height: 89px;
+    padding: 10px 4px 8px;
+    gap: 6px;
+    border-radius: 9px;
+  }
+  .piece-button > span:not(.piece-preview) {
+    font-size: 0.625rem;
+    line-height: 1.3;
+  }
+  .piece-preview {
+    grid-template-columns: repeat(3, 11px);
+    grid-template-rows: repeat(3, 11px);
+    gap: 2px;
+  }
+  .piece-button > svg {
+    width: 10px;
+    top: 4px;
+    right: 4px;
+  }
+  .piece-actions > [data-slot='button'] {
+    font-size: 0.75rem;
+    min-height: 45px;
+  }
+  .game-tip {
+    margin-top: 19px;
+    padding-top: 18px;
+  }
+  .game-tip p {
+    font-size: 0.875rem;
+  }
+  .keyboard-note {
+    font-size: 0.75rem;
+  }
+  .completion-heading {
+    padding-bottom: 8px;
+  }
+  .completion-heading h1 {
+    font-size: 10.1vw;
+  }
+  .completion-heading > p {
+    font-size: 0.9375rem;
+    margin-top: 13px;
+  }
+  .completion-heading > .eyebrow {
+    font-size: 0.625rem;
+  }
+  .game-completed .packing-panel {
+    padding-top: 10px;
+  }
+  .arrival-card {
+    padding: 25px 22px;
+  }
+  .arrival-card > .eyebrow {
+    font-size: 0.75rem;
+  }
+  .arrival-card .primary-button {
+    font-size: 0.75rem;
+  }
+  .arrival-actions > [data-slot='button'] {
+    font-size: 0.625rem;
+  }
+  .arrival-details {
+    font-size: 0.75rem;
+    gap: 20px;
+  }
+  .holiday-dialog {
+    padding: 27px 20px !important;
+    width: calc(100% - 24px) !important;
+    max-height: 91dvh;
+    gap: 18px !important;
+  }
+  .holiday-dialog [data-slot='dialog-title'] {
+    font-size: 1.6rem;
+  }
+  .holiday-dialog [data-slot='dialog-description'] {
+    font-size: 0.875rem;
+  }
+  .rules-content {
+    font-size: 0.9375rem;
+  }
+  .passport-summary {
+    padding: 16px 13px;
+    gap: 10px;
+  }
+  .passport-summary > span {
+    font-size: 0.875rem;
+  }
+  .passport-summary > span > b {
+    font-size: 0.5rem;
+  }
+  .passport-summary > strong {
+    font-size: 1.7rem;
+    gap: 5px;
+  }
+  .passport-summary small {
+    font-size: 0.5rem;
+  }
+  .passport-summary > svg {
+    width: 22px;
+  }
+  .passport-collection-grid {
+    gap: 10px;
+    margin-top: 19px;
+  }
+  .passport-collection-grid > button {
+    padding: 14px 8px;
+    gap: 12px;
+  }
+  .passport-collection-grid .passport-stamp {
+    max-width: 122px;
+    padding: 11px;
+  }
+  .passport-collection-grid .passport-stamp > span {
+    font-size: 0.4375rem;
+  }
+  .passport-collection-grid .passport-stamp > svg {
+    width: 24px;
+    height: 24px;
+  }
+  .passport-collection-grid .passport-stamp > strong {
+    font-size: 1.5rem;
+  }
+  .passport-collection-grid > button > small {
+    font-size: 0.5rem;
+  }
+  .stamp-destination {
+    font-size: 0.9375rem;
+  }
+  .postcard-link {
+    font-size: 0.5rem;
+  }
+  .postcard-image {
+    aspect-ratio: 1.3;
+  }
+  .postcard-image > span {
+    font-size: 0.625rem;
+    top: 14px;
+    left: 14px;
+  }
+  .postcard-image > h2 {
+    font-size: 3.25rem;
+    left: 13px;
+    bottom: 14px;
+  }
+  .postcard-back {
+    grid-template-columns: 1fr 84px;
+    gap: 10px;
+    padding: 18px 4px;
+  }
+  .postcard-back > .passport-stamp {
+    width: 84px;
+    padding: 7px;
+    gap: 3px;
+  }
+  .postcard-back .passport-stamp > span {
+    font-size: 0.3125rem;
+  }
+  .postcard-back .passport-stamp > strong {
+    font-size: 1.1rem;
+  }
+  .postcard-back .passport-stamp > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .postcard-back .eyebrow {
+    font-size: 0.5rem;
+  }
+  .postcard-back p {
+    font-size: 1.3rem;
+    margin-top: 10px;
+  }
+  .postcard-back small {
+    font-size: 0.625rem;
+  }
+  .launch-notes > h3 {
+    font-size: 1.6rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Readable metadata; small lettering inside decorative stamps stays ornamental. */
+.hero-footnote,
+.hero-topline .eyebrow,
+.visual-eyebrow,
+.puzzle-callout,
+.hero-ticket small,
+.boarding-title > span,
+.boarding-info > p,
+.boarding-info > div > span,
+.boarding-tear > span:last-child,
+.boarding-status,
+.destination-bottom > span,
+.token-card dt,
+.contract-field > .eyebrow,
+.launch-badge,
+.scoreboard > div > span,
+.suitcase-label > span,
+.suitcase-bottom,
+.progress-line,
+.game-navigation > .eyebrow,
+.game-heading .eyebrow,
+.game-heading > .text-link,
+.arrival-card > .eyebrow,
+.arrival-details,
+.site-footer a,
+.site-footer button,
+.passport-summary > span > b,
+.passport-collection-grid > button > small,
+.postcard-link {
+  font-size: 0.75rem;
+}
+.piece-button > span:not(.piece-preview) {
+  font-size: 0.875rem;
+}
+.boarding-info > div {
+  gap: 12px;
+}
+.boarding-tear {
+  min-height: 54px;
+}
+.boarding-info > p {
+  min-height: 40px;
+}
+.boarding-status {
+  font-family: var(--font-ui);
+  font-weight: 900;
+  line-height: 1.25;
+}
+.hero-ticket small {
+  font-size: 0.625rem;
+}
+.visual-eyebrow {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.passport-preview-stamps {
+  pointer-events: none;
+}
+.brand-kit {
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px 40px 50px;
+}
+.brand-kit > header,
+.brand-kit > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font: 0.75rem var(--font-mono);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+}
+.brand-kit > header > a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.brand-kit-title {
+  padding: 60px 0 45px;
+}
+.brand-kit-title h1 {
+  font-size: clamp(4.5rem, 10vw, 8rem);
+  font-weight: 950;
+  line-height: 0.88;
+  margin-top: 20px;
+}
+.brand-kit-title p {
+  font-size: 1.4rem;
+  font-weight: 750;
+  margin-top: 25px;
+}
+.brand-assets {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 25px;
+}
+.brand-assets > a {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+.brand-assets img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.brand-assets > a > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid var(--border);
+  font: 0.75rem var(--font-mono);
+  margin-top: auto;
+}
+.brand-kit > section {
+  margin-bottom: 45px;
+}
+.brand-kit-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin: 60px 0 28px;
+  border-top: 1px solid var(--border);
+  padding-top: 25px;
+}
+.brand-kit-heading > span {
+  font: 0.75rem var(--font-mono);
+}
+.brand-kit-heading > h2 {
+  font-size: 2rem;
+}
+.brand-swatches {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+.brand-swatches > div > div {
+  height: 140px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  font: 0.75rem var(--font-mono);
+}
+.brand-swatches h3 {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  margin-top: 14px;
+}
+.brand-swatches p {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 6px;
+}
+.brand-type-samples,
+.brand-patterns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+.brand-type-samples > article {
+  padding: 23px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 0;
+}
+.brand-type-samples h3 {
+  font-size: 3rem;
+  line-height: 0.97;
+  margin-top: 27px;
+}
+.brand-type-samples > article:nth-child(2) h3 {
+  font: 750 1.7rem/1.2 var(--font-ui);
+  letter-spacing: -0.04em;
+}
+.brand-type-samples > article:nth-child(3) h3 {
+  font: 700 1.7rem/1.4 var(--font-mono);
+  letter-spacing: -0.02em;
+}
+.brand-type-samples p {
+  font-size: 0.9375rem;
+  margin-block: 22px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.brand-type-samples strong {
+  font: 850 2.4rem var(--font-ui);
+}
+.brand-type-samples strong > small {
+  font: 0.625rem var(--font-mono);
+  display: block;
+}
+.brand-patterns h3 {
+  font-size: 1.5rem;
+  margin: 20px 0 15px;
+}
+.brand-patterns p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.brand-patterns svg {
+  color: #b3492d;
+}
+.brand-voice {
+  background: var(--navy);
+  color: var(--cream);
+  border-radius: 16px;
+  padding: 40px;
+  margin-top: 60px;
+}
+.brand-voice h2 {
+  font-size: 3rem;
+  margin: 20px 0;
+}
+.brand-voice p {
+  max-width: 600px;
+  line-height: 1.7;
+}
+.brand-voice > div {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.brand-voice > div > span {
+  font: 0.75rem var(--font-mono);
+  padding: 10px 13px;
+  border: 1px solid #fff7e847;
+  border-radius: 6px;
+}
+.brand-kit > footer {
+  border-top: 1px solid var(--border);
+  border-bottom: 0;
+}
+@media (max-width: 820px) {
+  .boarding-title > span {
+    font-size: 0.75rem;
+  }
+  .boarding-info > div .boarding-go {
+    display: none;
+  }
+  .boarding-info > div {
+    justify-content: space-between;
+  }
+  .game-navigation > .eyebrow {
+    font-size: 0.625rem;
+  }
+  .brand-kit {
+    padding-inline: 25px;
+  }
+  .brand-assets {
+    grid-template-columns: 180px 1fr;
+  }
+  .brand-kit-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .brand-swatches {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .brand-type-samples {
+    grid-template-columns: 1fr;
+  }
+  .brand-type-samples h3 {
+    font-size: 3.5rem;
+  }
+  .brand-patterns {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+}
+@media (max-width: 580px) {
+  .hero-footnote {
+    font-size: 0.625rem;
+  }
+  .visual-eyebrow {
+    justify-content: center;
+    line-height: 1.4;
+  }
+  .visual-eyebrow > svg {
+    display: none;
+  }
+  .puzzle-callout {
+    font-size: 0.625rem;
+  }
+  .hero-visual {
+    width: 90%;
+  }
+  .boarding-title > span {
+    font-size: 0.625rem;
+  }
+  .boarding-title h3 {
+    font-size: 1.3rem;
+  }
+  .boarding-title > svg {
+    display: none;
+  }
+  .boarding-status {
+    font-size: 0.625rem;
+  }
+  .boarding-info > p {
+    min-height: 48px;
+    font-size: 0.625rem;
+  }
+  .boarding-info > div > span {
+    font-size: 0.625rem;
+  }
+  .boarding-tear > span:last-child {
+    font-size: 0.5625rem;
+  }
+  .boarding-tear {
+    padding-inline: 9px;
+  }
+  .boarding-tear > .barcode {
+    width: 17px;
+    flex-shrink: 0;
+  }
+  .destination-bottom > span {
+    font-size: 0.625rem;
+  }
+  .piece-button > span:not(.piece-preview) {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+  .piece-button {
+    min-height: 99px;
+  }
+  .scoreboard > div > span {
+    font-size: 0.625rem;
+  }
+  .suitcase-label > span,
+  .suitcase-bottom {
+    font-size: 0.625rem;
+  }
+  .game-heading .eyebrow {
+    font-size: 0.625rem;
+  }
+  .game-heading > .text-link {
+    font-size: 0.625rem;
+  }
+  .site-footer a,
+  .site-footer button {
+    font-size: 0.625rem;
+  }
+  .passport-summary > span > b {
+    font-size: 0.5rem;
+  }
+  .passport-collection-grid > button > small,
+  .postcard-link {
+    font-size: 0.625rem;
+  }
+  .brand-kit {
+    padding-inline: 20px;
+  }
+  .brand-kit > header {
+    font-size: 0.625rem;
+    align-items: start;
+  }
+  .brand-kit > header > span {
+    text-align: right;
+    max-width: 100px;
+  }
+  .brand-kit-title {
+    padding-top: 38px;
+  }
+  .brand-kit-title h1 {
+    font-size: 16.5vw;
+  }
+  .brand-assets {
+    grid-template-columns: 1fr;
+  }
+  .brand-assets > a:first-child > img {
+    max-width: 270px;
+    margin: auto;
+  }
+  .brand-swatches {
+    grid-template-columns: 1fr 1fr;
+  }
+  .brand-swatches > div > div {
+    height: 125px;
+  }
+  .brand-kit-heading > h2 {
+    font-size: 1.8rem;
+  }
+  .brand-voice {
+    padding: 26px;
+  }
+  .brand-voice h2 {
+    font-size: 2.5rem;
+  }
+  .brand-kit > footer {
+    font-size: 0.625rem;
+  }
+}
+.mobile-board-controls {
+  display: none;
+}
+@media (max-width: 580px) {
+  .game-screen:has(.pieces-grid) .mobile-board-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 17px;
+  }
+  .mobile-board-controls > span {
+    font-size: 0.875rem;
+    font-weight: 800;
+    line-height: 1.4;
+    flex: 1;
+  }
+  .mobile-board-controls small {
+    display: block;
+    font: 0.625rem var(--font-mono);
+    color: var(--muted-foreground);
+    margin-top: 3px;
+  }
+  .mobile-board-controls > [data-slot='button'] {
+    padding-inline: 15px;
+    background: transparent;
+  }
+  .game-screen:has(.pieces-grid) .progress-line {
+    margin-top: 16px;
+  }
+  .game-screen:has(.pieces-grid) .game-message {
+    font-size: 0.75rem;
+  }
+  .game-navigation > .eyebrow {
+    letter-spacing: 0.03em;
+  }
+  .site-footer > div {
+    gap: 9px;
+  }
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/space-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-mono-latin-700-normal.woff2') format('woff2');
+}
+.boarding-picture,
+.postcard-image {
+  aspect-ratio: 1.5;
+}
+.brand-atlas-download {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+}
+.brand-atlas-download > img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.brand-atlas-download p {
+  font: 800 1.7rem/1.2 var(--font-display);
+  letter-spacing: -0.035em;
+  max-width: 320px;
+  margin: 15px 0 23px;
+}
+.brand-atlas-download .text-link {
+  display: flex;
+  font-size: 0.75rem;
+  margin-top: 15px;
+}
+@media (max-width: 580px) {
+  .brand-atlas-download {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .brand-atlas-download > div {
+    padding: 0 8px 12px;
+  }
+}
